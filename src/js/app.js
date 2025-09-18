@@ -1,13 +1,15 @@
 // Main application logic
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize speech synthesis
-    try {
-        window.speechSynthesis.init();
-    } catch (error) {
-        showStatus('Error: Speech synthesis not supported in this browser', 'error');
-        document.getElementById('speak-button').disabled = true;
-        return;
-    }
+    window.speechSynthesis.init()
+        .then(() => {
+            showStatus('Speech synthesis ready');
+            document.getElementById('speak-button').disabled = false;
+        })
+        .catch(error => {
+            showStatus(`Error: ${error.message}`, 'error');
+            document.getElementById('speak-button').disabled = true;
+        });
 
     const textInput = document.getElementById('text-input');
     const voiceSelect = document.getElementById('voice-select');
