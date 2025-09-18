@@ -1,50 +1,31 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Requis techniques minimaux pour une application web statique PWA
 
-## Core Principles
+1. Simplicité et autonomie
+- Chaque composant doit être autonome, testable indépendamment et documenté.
+- La structure du projet doit rester simple (YAGNI : ne pas ajouter de complexité inutile).
+- Utiliser en priorité du code vanille plutôt que des librairies externes.
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+2. Testabilité
+- Les tests doivent être écrits avant l’implémentation (TDD obligatoire).
+- Les tests doivent être validés par l’utilisateur avant le développement.
+- Cycle Red-Green-Refactor strictement appliqué.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+3. Interface utilisateur
+- L’application doit fonctionner en mode statique (HTML/CSS/JS sans backend dynamique).
+- Doit respecter les standards PWA : manifest, service worker, responsive design.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+4. Observabilité et débogage
+- Journalisation structurée (logs lisibles et exploitables).
+- Text I/O pour faciliter le débogage.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+5. Versioning et évolutivité
+- Utiliser un format de version MAJOR.MINOR.BUILD.
+- Toute modification majeure doit être documentée et validée.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+6. Sécurité et conformité
+- Respecter les standards de sécurité du web (HTTPS, CSP, etc.).
+- Définir les politiques de déploiement et de conformité.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
-
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
-
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+7. Workflow de développement
+- Revue de code obligatoire avant tout déploiement.
+- Les PRs doivent vérifier la conformité à la constitution.
