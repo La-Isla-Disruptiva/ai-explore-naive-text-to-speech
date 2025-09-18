@@ -1,9 +1,10 @@
 import { languageDetection } from './languageDetection.js';
+import { textToSpeech } from './speechSynthesis.js';
 
 // Main application logic
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize speech synthesis
-    window.textToSpeech.init()
+    textToSpeech.init()
         .then(() => {
             showStatus('Speech synthesis ready');
             document.getElementById('speak-button').disabled = false;
@@ -44,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 Spanish: ${percentages.es.toFixed(1)}%
             `;
 
-            if (dominantPercentage < 50) {
-                showStatus('Error: No dominant language detected (threshold: 50%)', 'error');
+            if (dominantPercentage < 5) {
+                showStatus('Error: No dominant language detected (threshold: 5%)', 'error');
                 speakButton.disabled = true;
                 return;
             }
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatus('Reading text...');
 
         try {
-            await window.textToSpeech.speak(text, dominantLanguage, gender);
+            await textToSpeech.speak(text, dominantLanguage, gender);
             showStatus('Finished reading');
         } catch (error) {
             showStatus(`Error: ${error.message}`, 'error');

@@ -203,7 +203,7 @@ const speak = async (text, lang, gender = 'male') => {
 };
 
 // Export for use in other files
-window.textToSpeech = {
+export const textToSpeech = {
     init: initSpeechSynthesis,
     speak,
     getVoices
