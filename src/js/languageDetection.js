@@ -1,18 +1,26 @@
+import { frenchWords } from './french_words.js';
+
 // Language detection functionality
 const detectLanguage = (text) => {
-    // Simple language detection based on common words
+    // Enhanced language detection with comprehensive French word list
     const languages = {
         fr: {
-            words: ['le', 'la', 'les', 'un', 'une', 'des', 'et', 'ou', 'je', 'tu', 'il', 'elle', 'nous', 'vous'],
-            count: 0
+            words: frenchWords,
+            commonWords: ['le', 'la', 'les', 'un', 'une', 'des', 'et', 'ou', 'je', 'tu', 'il', 'elle', 'nous', 'vous'],
+            count: 0,
+            commonCount: 0
         },
         en: {
             words: ['the', 'a', 'an', 'and', 'or', 'i', 'you', 'he', 'she', 'we', 'they', 'this', 'that', 'what'],
-            count: 0
+            commonWords: ['the', 'a', 'an', 'and', 'or', 'i', 'you', 'he', 'she', 'we'],
+            count: 0,
+            commonCount: 0
         },
         es: {
             words: ['el', 'la', 'los', 'las', 'un', 'una', 'unos', 'y', 'o', 'yo', 'tu', 'él', 'ella', 'nosotros'],
-            count: 0
+            commonWords: ['el', 'la', 'los', 'las', 'un', 'una', 'unos', 'y', 'o', 'yo'],
+            count: 0,
+            commonCount: 0
         }
     };
 
@@ -20,19 +28,25 @@ const detectLanguage = (text) => {
     const words = text.toLowerCase().split(/\s+/);
     const totalWords = words.length;
 
-    // Count occurrences of words in each language
+    // Count occurrences of words in each language with weighted scoring
     words.forEach(word => {
         for (let lang in languages) {
-            if (languages[lang].words.includes(word)) {
-                languages[lang].count++;
+            const langData = languages[lang];
+            if (langData.commonWords.includes(word)) {
+                langData.commonCount++;
+                langData.count++;
+            } else if (langData.words.includes(word)) {
+                langData.count++;
             }
         }
     });
 
-    // Calculate percentages
+    // Calculate percentages with weighted scoring
+    // Common words are weighted more heavily (2x) as they are stronger indicators
     const results = {};
     for (let lang in languages) {
-        results[lang] = (languages[lang].count / totalWords) * 100;
+        const langData = languages[lang];
+        results[lang] = ((langData.commonCount * 2 + langData.count) / totalWords) * 100;
     }
 
     // Determine dominant language
@@ -46,7 +60,10 @@ const detectLanguage = (text) => {
     };
 };
 
-// Export for use in other files
-window.languageDetection = {
+// Export the module
+export const languageDetection = {
     detectLanguage
 };
+
+// Also make it available globally for compatibility
+window.languageDetection = languageDetection;

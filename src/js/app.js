@@ -1,7 +1,9 @@
+import { languageDetection } from './languageDetection.js';
+
 // Main application logic
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize speech synthesis
-    window.speechSynthesis.init()
+    window.textToSpeech.init()
         .then(() => {
             showStatus('Speech synthesis ready');
             document.getElementById('speak-button').disabled = false;
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (count > 0) {
-            const { dominantLanguage, dominantPercentage, percentages } = window.languageDetection.detectLanguage(text);
+            const { dominantLanguage, dominantPercentage, percentages } = languageDetection.detectLanguage(text);
             
             languageStats.innerHTML = `
                 Detected languages:<br>
@@ -61,14 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = textInput.value.trim();
         if (!text) return;
 
-        const { dominantLanguage } = window.languageDetection.detectLanguage(text);
+        const { dominantLanguage } = languageDetection.detectLanguage(text);
         const gender = voiceSelect.value;
 
         speakButton.disabled = true;
         showStatus('Reading text...');
 
         try {
-            await window.speechSynthesis.speak(text, dominantLanguage, gender);
+            await window.textToSpeech.speak(text, dominantLanguage, gender);
             showStatus('Finished reading');
         } catch (error) {
             showStatus(`Error: ${error.message}`, 'error');

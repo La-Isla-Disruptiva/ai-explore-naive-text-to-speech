@@ -92,7 +92,7 @@ const speak = (text, lang, gender = 'male') => {
 };
 
 // Export for use in other files
-window.speechSynthesis = {
+window.textToSpeech = {
     init: initSpeechSynthesis,
     speak,
     getVoices

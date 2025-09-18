@@ -28,11 +28,34 @@
         describe('Language Detection', () => {
             const { detectLanguage } = window.languageDetection;
 
-            it('should detect French as dominant language', () => {
-                const text = 'Je suis une phrase en français avec les mots courants.';
-                const result = detectLanguage(text);
-                assert.equal(result.dominantLanguage, 'fr');
-                assert.isAbove(result.dominantPercentage, 50);
+            describe('French Language Detection', () => {
+                it('should detect simple French sentence', () => {
+                    const text = 'Je suis une phrase en français avec les mots courants.';
+                    const result = detectLanguage(text);
+                    assert.equal(result.dominantLanguage, 'fr');
+                    assert.isAbove(result.dominantPercentage, 60);
+                });
+
+                it('should detect complex French text with various words', () => {
+                    const text = 'Le petit garçon marche dans le jardin. Il regarde les belles fleurs et écoute les oiseaux chanter au printemps.';
+                    const result = detectLanguage(text);
+                    assert.equal(result.dominantLanguage, 'fr');
+                    assert.isAbove(result.dominantPercentage, 70);
+                });
+
+                it('should detect French in academic text', () => {
+                    const text = 'La recherche scientifique démontre que les changements climatiques nécessitent une action immédiate et collective.';
+                    const result = detectLanguage(text);
+                    assert.equal(result.dominantLanguage, 'fr');
+                    assert.isAbove(result.dominantPercentage, 65);
+                });
+
+                it('should detect French with numbers and punctuation', () => {
+                    const text = 'En 2025, plus de 1000 chercheurs travailleront sur ce projet important!';
+                    const result = detectLanguage(text);
+                    assert.equal(result.dominantLanguage, 'fr');
+                    assert.isAbove(result.dominantPercentage, 60);
+                });
             });
 
             it('should detect English as dominant language', () => {
