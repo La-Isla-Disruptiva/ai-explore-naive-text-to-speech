@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Language Detection Tests</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+</head>
+
+<body>
+    <div id="mocha"></div>
+
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+    <script class="mocha-init">
+        mocha.setup('bdd');
+        mocha.checkLeaks();
+    </script>
+
+    <!-- Load the code to test -->
+    <script src="../../src/js/languageDetection.js"></script>
+
+    <!-- Load the test file -->
+    <script>
+        const { assert } = chai;
+
+        describe('Language Detection', () => {
+            const { detectLanguage } = window.languageDetection;
+
+            it('should detect French as dominant language', () => {
+                const text = 'Je suis une phrase en français avec les mots courants.';
+                const result = detectLanguage(text);
+                assert.equal(result.dominantLanguage, 'fr');
+                assert.isAbove(result.dominantPercentage, 50);
+            });
+
+            it('should detect English as dominant language', () => {
+                const text = 'This is a sentence in English with common words.';
+                const result = detectLanguage(text);
+                assert.equal(result.dominantLanguage, 'en');
+                assert.isAbove(result.dominantPercentage, 50);
+            });
+
+            it('should detect Spanish as dominant language', () => {
+                const text = 'Esta es una frase en español con palabras comunes.';
+                const result = detectLanguage(text);
+                assert.equal(result.dominantLanguage, 'es');
+                assert.isAbove(result.dominantPercentage, 50);
+            });
+
+            it('should handle mixed language text', () => {
+                const text = 'This is mixed con algunas palabras en español and some mots en français.';
+                const result = detectLanguage(text);
+                assert.isBelow(result.dominantPercentage, 50);
+            });
+
+            it('should handle empty text', () => {
+                const result = detectLanguage('');
+                assert.equal(result.dominantPercentage, 0);
+            });
+        });
+    </script>
+
+    <script class="mocha-exec">
+        mocha.run();
+    </script>
+</body>
+
+</html>
