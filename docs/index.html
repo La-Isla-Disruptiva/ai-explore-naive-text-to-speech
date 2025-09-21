@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilingual Text-to-Speech</title>
+    <script type="module" crossorigin src="/main.js"></script>
+    <link rel="stylesheet" crossorigin href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Text-to-Speech Reader</h1>
+
+        <div class="language-info">
+            <div id="language-stats"></div>
+        </div>
+
+        <div class="text-input">
+            <textarea id="text-input" placeholder="Enter your text in English, French, or Spanish (max 500 words)"
+                rows="6"></textarea>
+            <div class="word-count">Words: <span id="word-count">0</span>/500</div>
+        </div>
+
+        <div class="controls">
+            <select id="voice-select">
+                <option value="male">Male Voice</option>
+                <option value="female">Female Voice</option>
+            </select>
+            <button id="speak-button">Read Aloud</button>
+        </div>
+
+        <div class="status" id="status-message"></div>
+    </div>
+
+</body>
+
+</html>
